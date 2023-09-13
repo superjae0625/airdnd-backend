@@ -1,0 +1,19 @@
+[tool.poetry]
+name = "airdnd-backend"
+version = "0.1.0"
+description = ""
+authors = ["Your Name <you@example.com>"]
+license = "MIT"
+readme = "README.md"
+packages = [{include = "airdnd_backend"}]
+
+[tool.poetry.dependencies]
+python = "^3.11"
+django = "^4.2.4"
+beautifulsoup4 = "^4.12.2"
+pillow = "^10.0.0"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
