@@ -3,22 +3,36 @@ from common.models import CommonModel
 
 
 class Room(CommonModel):
+
     """Room Model Definition"""
 
     class RoomKindChoices(models.TextChoices):
         ENTIRE_PLACE = ("entire_place", "Entire Place")
         PRIVATE_ROOM = ("private_room", "Private Room")
-        SHARED_ROOM = ("shared_room", "Shared Room")
+        SHARED_ROOM = "shared_room", "Shared Room"
 
-    name = models.CharField(max_length=180, default="")
-    country = models.CharField(max_length=50, default="US")
-    city = models.CharField(max_length=80, default="Salt Lake City")
+    name = models.CharField(
+        max_length=180,
+        default="",
+    )
+    country = models.CharField(
+        max_length=50,
+        default="한국",
+    )
+    city = models.CharField(
+        max_length=80,
+        default="서울",
+    )
     price = models.PositiveIntegerField()
-    rooms = models.PositiveBigIntegerField()
+    rooms = models.PositiveIntegerField()
     toilets = models.PositiveIntegerField()
     description = models.TextField()
-    address = models.CharField(max_length=250)
-    pet_friendly = models.BooleanField(default=True)
+    address = models.CharField(
+        max_length=250,
+    )
+    pet_friendly = models.BooleanField(
+        default=True,
+    )
     kind = models.CharField(
         max_length=20,
         choices=RoomKindChoices.choices,
@@ -40,9 +54,8 @@ class Room(CommonModel):
         related_name="rooms",
     )
 
-    # can you room instead of self
-    def __str__(self) -> str:
-        return self.name
+    def __str__(room) -> str:
+        return room.name
 
     def total_amenities(room):
         return room.amenities.count()
@@ -50,19 +63,17 @@ class Room(CommonModel):
     def rating(room):
         count = room.reviews.count()
         if count == 0:
-            return "No Reivews"
+            return 0
         else:
             total_rating = 0
-            # print(room.reviews.all().values("rating"))
-            # print(room.reviews.all())
             for review in room.reviews.all().values("rating"):
                 total_rating += review["rating"]
-                # changed to dictionary format
             return round(total_rating / count, 2)
 
 
 class Amenity(CommonModel):
-    """Amenity Definition"""
+
+    """Amenity Definiton"""
 
     name = models.CharField(
         max_length=150,
@@ -73,7 +84,6 @@ class Amenity(CommonModel):
         blank=True,
     )
 
-    # can you amenity instead of self
     def __str__(self) -> str:
         return self.name
 
